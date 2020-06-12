@@ -8,22 +8,14 @@ def index_template(request):
     f = request.FILES.get("file")
     if f:
         data = f.read()
-
-        # with open(os.path.join(settings.MEDIA_ROOT, f.name), "wb+") as dest:
-        #     for chunk in f.chunks():
-        #         dest.write(chunk)
         indiviual_id = get_indiviual_id(data)
-        context = {"indiviual_id": indiviual_id}
-        print(indiviual_id)
-
         get_wagyu_data(indiviual_id)
-
         f = None
-    return render(request, "index.html", context)
+    return render(request, "index.html")
 
 
 from io import BytesIO
-from PIL import Image, ImageOps
+from PIL import Image
 import sys
 import re
 import pyocr
@@ -31,14 +23,10 @@ import pyocr.builders
 import requests
 import chromedriver_binary
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options  # オプションを使うために必要
-from pathlib import Path
+from selenium.webdriver.chrome.options import Options
 
 
 def get_indiviual_id(data):
-
-    # img_path = "/Users/Chihiro/Personal/10_Projects/Waguyer/Images/20200523_151941.jpg"
-
     tools = pyocr.get_available_tools()
     tool = tools[0]
 
@@ -59,9 +47,8 @@ def get_indiviual_id(data):
 
 
 def get_wagyu_data(indiviual_id):
-    # get wagyu info
-    option = Options()  # オプションを用意
-    option.add_argument("--headless")  # ヘッドレスモードの設定を付与
+    option = Options()
+    option.add_argument("--headless")
     driver_path = "./modules/chromedriver"
     driver = webdriver.Chrome(executable_path=driver_path, options=option)
     # driver = webdriver.Chrome(executable_path=driver_path)
