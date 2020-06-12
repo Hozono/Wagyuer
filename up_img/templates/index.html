@@ -1,0 +1,15 @@
+<html>
+
+<head>
+    <title>template test</title>
+</head>
+
+<body>
+    {{indiviual_id}}
+    <form method="post" enctype="multipart/form-data"> {% csrf_token%}
+        <input type="file" name="file">
+        <button type="submit">送信</button>
+    </form>
+</body>
+
+</html>
