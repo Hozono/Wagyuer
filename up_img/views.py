@@ -1,17 +1,25 @@
-from django.shortcuts import render
-
-from setting import settings
 import os
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
+from django.views import View
+from setting import settings
 
 
 def index_template(request):
-    f = request.FILES.get("file")
-    if f:
-        data = f.read()
+    form = request.FILES.get("file")
+    if form:
+        data = form.read()
         indiviual_id = get_indiviual_id(data)
         get_wagyu_data(indiviual_id)
         f = None
+        return HttpResponseRedirect("wagyu_info/")
     return render(request, "index.html")
+
+
+def show_wagyu_info(request):
+
+    return render(request, "show_wagyu_info.html")
 
 
 from io import BytesIO
@@ -70,11 +78,21 @@ def get_wagyu_data(indiviual_id):
             "/html/body/div/table[1]/tbody/tr[3]/td[2]/table/tbody/tr[2]/td[2]/table/tbody/tr[1]/td[3]/form/table/tbody/tr[2]/td/input[2]"
         ).click()
 
-        table = driver.find_element_by_xpath(
+        indiviual_table = driver.find_element_by_xpath(
             "/html/body/div/table[1]/tbody/tr[3]/td[2]/table/tbody/tr[2]/td[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td/span/table[1]"
         )
-        trs = table.find_elements_by_tag_name("td")
-        for td in trs:
-            print(td.text)
+        ths = indiviual_table.find_elements_by_tag_name("th")
+        tds = indiviual_table.find_elements_by_tag_name("td")
+        for th, td in zip(ths, tds):
+            print(th.text, td.text)
+
+        moving_info = driver.find_element_by_xpath(
+            "/html/body/div/table[1]/tbody/tr[3]/td[2]/table/tbody/tr[2]/td[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td/span/table[2]"
+        )
+        trs = moving_info.find_elements_by_tag_name("tr")
+        for tr in trs:
+            tds = tr.find_elements_by_tag_name("td")
+            for td in tds:
+                print(td.text)
     finally:
         driver.quit()
