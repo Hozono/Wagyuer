@@ -9,7 +9,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options  # オプションを使うために必要
 
 
-img_path = "/Users/Chihiro/Personal/10_Projects/Waguyer/Images/20200523_151941.jpg"
+img_path = "/Users/Chihiro/Personal/10_Projects/Wagyuer/Images/20200523_151941.jpg"
 tools = pyocr.get_available_tools()
 tool = tools[0]
 
@@ -51,11 +51,21 @@ try:
         "/html/body/div/table[1]/tbody/tr[3]/td[2]/table/tbody/tr[2]/td[2]/table/tbody/tr[1]/td[3]/form/table/tbody/tr[2]/td/input[2]"
     ).click()
 
-    table = driver.find_element_by_xpath(
+    indiviual_table = driver.find_element_by_xpath(
         "/html/body/div/table[1]/tbody/tr[3]/td[2]/table/tbody/tr[2]/td[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td/span/table[1]"
     )
-    trs = table.find_elements_by_tag_name("td")
-    for td in trs:
-        print(td.text)
+    ths = indiviual_table.find_elements_by_tag_name("th")
+    tds = indiviual_table.find_elements_by_tag_name("td")
+    for th, td in zip(ths, tds):
+        print(th.text, td.text)
+
+    moving_info = driver.find_element_by_xpath(
+        "/html/body/div/table[1]/tbody/tr[3]/td[2]/table/tbody/tr[2]/td[2]/table/tbody/tr[3]/td[2]/table/tbody/tr/td/span/table[2]"
+    )
+    trs = moving_info.find_elements_by_tag_name("tr")
+    for tr in trs:
+        tds = tr.find_elements_by_tag_name("td")
+        for td in tds:
+            print(td.text)
 finally:
     driver.quit()
