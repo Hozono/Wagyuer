@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import WagyuInfomation, WagyuPackageImg
 
-# Register your models here.
+admin.site.register(WagyuInfomation)
+admin.site.register(WagyuPackageImg)

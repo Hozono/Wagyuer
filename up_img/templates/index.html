@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html>
 
 <head>
@@ -5,8 +7,9 @@
 </head>
 
 <body>
-    <form method="post" enctype="multipart/form-data"> {% csrf_token%}
-        <input type="file" name="file">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token%}
+        {{ form }}
         <button type="submit">送信</button>
     </form>
 

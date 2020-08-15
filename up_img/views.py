@@ -1,24 +1,36 @@
 import os
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse
-from django.views import View
+from django.views.generic import CreateView, View, FormView
 from setting import settings
 
+from .forms import ImageUploadForm
+from .models import WagyuPackageImg
 
-def index_template(request):
-    form = request.FILES.get("file")
-    if form:
-        data = form.read()
-        indiviual_id = get_indiviual_id(data)
-        get_wagyu_data(indiviual_id)
-        f = None
-        return HttpResponseRedirect("wagyu_info/")
-    return render(request, "index.html")
+
+class IndexView(CreateView):
+    model = WagyuPackageImg
+    form_class = ImageUploadForm
+    template_name = "index.html"
+
+    def get_success_url(self):
+        return reverse("index")
+
+
+# def index_template(request):
+#     form = request.FILES.get("file")
+#     if form:
+#         data = form.read()
+#         indiviual_id = get_indiviual_id(data)
+#         trs = get_wagyu_data(indiviual_id)
+#         params = {"wagyu_info": trs, "test": "test"}
+#         # form = None
+#         return redirect("wagyu_info/")
+#     return render(request, "index.html")
 
 
 def show_wagyu_info(request):
-
     return render(request, "show_wagyu_info.html")
 
 
@@ -96,3 +108,5 @@ def get_wagyu_data(indiviual_id):
                 print(td.text)
     finally:
         driver.quit()
+
+    return trs
