@@ -18,16 +18,17 @@ class IndexView(CreateView):
         return reverse("index")
 
 
-# def index_template(request):
-#     form = request.FILES.get("file")
-#     if form:
-#         data = form.read()
-#         indiviual_id = get_indiviual_id(data)
-#         trs = get_wagyu_data(indiviual_id)
-#         params = {"wagyu_info": trs, "test": "test"}
-#         # form = None
-#         return redirect("wagyu_info/")
-#     return render(request, "index.html")
+def index_template(request):
+    form = request.FILES.get("file")
+    if form:
+        data = form.read()
+        indiviual_id = get_indiviual_id(data)
+        trs = get_wagyu_data(indiviual_id)
+        params = {"wagyu_info": trs, "test": "test"}
+        print(params)
+        form = None
+        return redirect("wagyu_info/")
+    return render(request, "index.html")
 
 
 def show_wagyu_info(request):
