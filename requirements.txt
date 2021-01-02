@@ -7,6 +7,7 @@ blinker==1.4
 CacheControl==0.12.6
 cachy==0.3.0
 certifi==2019.11.28
+cffi==1.14.4
 chardet==3.0.4
 chromedriver-binary==88.0.4324.27.1
 cleo==0.8.1
@@ -18,7 +19,7 @@ command-not-found==0.3
 configobj==5.0.6
 constantly==15.1.0
 crashtest==0.3.1
-cryptography==2.8
+cryptography==3.3.1
 dbus-python==1.2.16
 distlib==0.3.1
 distro==1.4.0
@@ -27,7 +28,7 @@ Django==3.1.4
 entrypoints==0.3
 filelock==3.0.12
 html5lib==1.1
-httplib2==0.14.0
+httplib2==0.18.1
 hyperlink==19.0.0
 idna==2.8
 importlib-metadata==1.5.0
@@ -61,6 +62,7 @@ poetry-core==1.0.0
 ptyprocess==0.6.0
 pyasn1==0.4.2
 pyasn1-modules==0.2.1
+pycparser==2.20
 PyGObject==3.36.0
 PyHamcrest==1.9.0
 PyJWT==1.7.1
@@ -92,7 +94,7 @@ ssh-import-id==5.10
 systemd-python==234
 toml==0.10.2
 tomlkit==0.7.0
-Twisted==18.9.0
+Twisted==20.3.0
 ubuntu-advantage-tools==20.3
 ufw==0.36
 unattended-upgrades==0.1
@@ -103,4 +105,3 @@ webencodings==0.5.1
 wrapt==1.12.1
 zipp==1.0.0
 zope.interface==4.7.1
-ti
