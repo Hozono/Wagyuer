@@ -19,7 +19,7 @@ remove_container:
 
 # Django
 dumpdata:
-	python manage.py dumpdata auth.User --indent 2 --format=json > wagyuer/fixtures/user.json
+	python manage.py dumpdata auth.User --indent 2 --format=yaml > wagyuer/fixtures/user.yaml
 
 loaddata:
-	python manage.py loaddata  wagyuer/fixtures/user.json
+	python manage.py loaddata  wagyuer/fixtures/user.yaml

@@ -1,0 +1,15 @@
+- model: auth.user
+  pk: 1
+  fields:
+    password: pbkdf2_sha256$216000$jQZqFdLIWHxj$M+bggjgevZIazcva4Ng4elWf9Oxz3ElYNR6FBH8H6mI=
+    last_login: 2021-01-02 12:25:50.662089+00:00
+    is_superuser: true
+    username: admin
+    first_name: ''
+    last_name: ''
+    email: chihiro4434132@gmail.com
+    is_staff: true
+    is_active: true
+    date_joined: 2021-01-02 10:30:53.310000+00:00
+    groups: []
+    user_permissions: []
