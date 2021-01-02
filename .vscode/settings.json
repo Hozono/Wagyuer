@@ -1,2 +1,10 @@
 {
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true,
+    "python.linting.lintOnSave": true,
+    // "python.linting.flake8Path": "${workspaceFolder}/.venv/bin/flake8",
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+    // "python.formatting.blackPath": "${workspaceFolder}/.venv/bin/black",
 }
