@@ -1,15 +1,18 @@
 from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.views.generic import CreateView, TemplateView
+from django.urls import reverse_lazy
 
-from django.http import HttpResponse
+from wagyuer.forms import ImageUploadForm
+from wagyuer.models import WagyuPackageImg
  
 
-class Index(TemplateView):
+class Index(CreateView):
 
+    model = WagyuPackageImg
+    form_class = ImageUploadForm
     template_name = "index.html"
-
-    def get_context_data(self, **kwargs):
-        """pass data to template"""
-        context = super().get_context_data(**kwargs)
-        context["foo"] = "bar"
-        return context
+    success_url = reverse_lazy("wagyuer:index")
+    
+    def post(self, request, *args, **kwargs):
+        print("アップロードされたよん")
+        return super().post(request, *args, **kwargs)

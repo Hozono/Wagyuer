@@ -9,8 +9,8 @@
 <body>
     <form method="post" enctype="multipart/form-data">
         {% csrf_token%}
-        <p>{{foo}}</p>
-        <button type="submit">送信</button>
+        {{ form }}
+        <button type="submit">Upload</button>
     </form>
 
 </body>

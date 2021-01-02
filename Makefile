@@ -23,3 +23,9 @@ dumpdata:
 
 loaddata:
 	python manage.py loaddata  wagyuer/fixtures/user.yaml
+
+migrations:
+	python manage.py makemigrations
+
+migrate:
+	python manage.py migrate
