@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 
 from wagyuer.forms import ImageUploadForm
 from wagyuer.models import WagyuPackageImg
-from wagyuer.modules import wagyuer
+from wagyuer.modules.wagyuer import Wagyuer
 
 
 class Index(CreateView):
@@ -14,7 +14,6 @@ class Index(CreateView):
     success_url = reverse_lazy("wagyuer:index")
 
     def post(self, request, *args, **kwargs):
-        wagyuer = wagyuer.Wagyuer()
-        
-        
+        wagyuer = Wagyuer()
         return super().post(request, *args, **kwargs)
+

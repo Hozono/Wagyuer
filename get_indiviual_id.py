@@ -8,8 +8,18 @@ import chromedriver_binary
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options  # オプションを使うために必要
 
+from logging import getLogger, DEBUG, StreamHandler
 
-img_path = "/Users/Chihiro/Personal/10_Projects/Wagyuer/Images/20200523_151941.jpg"
+logger = getLogger(__name__)
+handler = StreamHandler()
+handler.setLevel(DEBUG)
+logger.addHandler(handler)
+
+logger.setLevel(DEBUG)
+logger.debug("log test")
+
+
+img_path = "/home/chihiro/Wagyuer/media/uploads/2021/01/03/20200523_151941.jpg"
 tools = pyocr.get_available_tools()
 tool = tools[0]
 
@@ -21,16 +31,16 @@ txt = tool.image_to_string(
     builder=pyocr.builders.TextBuilder(tesseract_layout=6),
 )
 
-# get indiviual id
+# get indiviual id from package image
 regex = re.compile("\d{10}")
 match = regex.findall(txt)
 if match:
     indiviual_id = match[0]
 
 # get wagyu info
-option = Options()  # オプションを用意
-option.add_argument("--headless")  # ヘッドレスモードの設定を付与
-driver_path = "./modules/chromedriver"
+option = Options()
+option.add_argument("--headless")
+driver_path = "wagyuer/modules/chromedriver"
 driver = webdriver.Chrome(executable_path=driver_path, options=option)
 # driver = webdriver.Chrome(executable_path=driver_path)
 
