@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.views.generic import CreateView
 from django.urls import reverse_lazy
 
@@ -14,7 +15,7 @@ class Index(CreateView):
     success_url = reverse_lazy("wagyuer:index")
 
     def post(self, request, *args, **kwargs):
-        img_path = WagyuPackageImg.objects.latest("upload_date").img
-        print(img_path)
+        img_path = WagyuPackageImg.objects.latest("upload_date").img.path
+
         # wagyuer = Wagyuer()
         return super().post(request, *args, **kwargs)
