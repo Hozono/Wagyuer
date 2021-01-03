@@ -7,14 +7,15 @@ class WagyuPackageImg(models.Model):
     upload_date = models.DateTimeField(auto_now_add=True)
     img = models.ImageField(verbose_name="アップロード画像", upload_to="uploads/%Y/%m/%d/")
 
-    def __str__(self):
-        return self.img
+    # def __str__(self):
+    #     return self.img
 
 
 class WagyuInfomation(models.Model):
     """和牛情報を保存するテーブル"""
 
     wagyu_package = models.ForeignKey(to=WagyuPackageImg, on_delete=models.CASCADE)
+    insert_date = models.DateTimeField(auto_now_add=True)
     individual_id = models.CharField(
         verbose_name="個体識別番号", blank=True, null=True, max_length=255
     )
@@ -28,6 +29,3 @@ class WagyuInfomation(models.Model):
     slaughter_place = models.CharField(
         verbose_name="と畜場所", blank=True, null=True, max_length=255
     )
-
-    def __str__(self):
-        return self.individual_id
