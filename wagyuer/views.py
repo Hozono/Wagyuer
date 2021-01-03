@@ -14,6 +14,7 @@ class Index(CreateView):
     success_url = reverse_lazy("wagyuer:index")
 
     def post(self, request, *args, **kwargs):
-        wagyuer = Wagyuer()
+        img_path = WagyuPackageImg.objects.latest("upload_date").img
+        print(img_path)
+        # wagyuer = Wagyuer()
         return super().post(request, *args, **kwargs)
-

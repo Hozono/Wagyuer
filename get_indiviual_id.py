@@ -94,6 +94,7 @@ try:
 
             # print(td.text)
     print(WagyuInfomation)
+    print("このふぃある")
 
 finally:
     driver.quit()

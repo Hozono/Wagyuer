@@ -18,6 +18,9 @@ remove_container:
 	docker rm wagyuer
 
 # Django
+run:
+	python manage.py runserver
+
 dumpdata:
 	python manage.py dumpdata auth.User --indent 2 --format=yaml > wagyuer/fixtures/user.yaml
 
