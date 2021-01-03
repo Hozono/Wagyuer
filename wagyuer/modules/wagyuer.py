@@ -85,3 +85,10 @@ try:
 
 finally:
     driver.quit()
+
+
+class Wagyuer:
+    def __init__(self):
+        print("execute wagyuer...")
+
+    def 
