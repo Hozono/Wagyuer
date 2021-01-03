@@ -124,3 +124,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+# Original settings
+WAGYU_SITE_URL = "https://www.id.nlbc.go.jp/top.html?pc"
