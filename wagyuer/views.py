@@ -16,6 +16,5 @@ class Index(CreateView):
 
     def post(self, request, *args, **kwargs):
         img_path = WagyuPackageImg.objects.latest("upload_date").img.path
-
-        # wagyuer = Wagyuer()
+        wagyuer = Wagyuer(img_path)
         return super().post(request, *args, **kwargs)

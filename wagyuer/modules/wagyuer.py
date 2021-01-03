@@ -90,9 +90,10 @@ from logging import getLogger, DEBUG, StreamHandler
 #     driver.quit()
 
 
-
 class Wagyuer:
-    def __init__(self):
+    def __init__(self, img_path):
+        self.img_path = img_path
+        print(self.img_path)
 
         logger = getLogger(__name__)
         handler = StreamHandler()
