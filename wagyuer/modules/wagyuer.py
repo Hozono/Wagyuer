@@ -1,27 +1,21 @@
-from PIL import Image
 import re
+from logging import getLogger
+
+import chromedriver_binary
 import pyocr
 import pyocr.builders
-import chromedriver_binary
+from django.conf import settings
+from PIL import Image
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options  # オプションを使うために必要
 
-from django.conf import settings
 
-from logging import getLogger, DEBUG, StreamHandler
-
-
-# logger = getLogger(__name__)
-# handler = StreamHandler()
-# handler.setLevel(DEBUG)
-# logger.addHandler(handler)
-
-# logger.setLevel(DEBUG)
-# logger.debug("execute wagyuer...")
 class Wagyuer:
     def __init__(self, img_path: str) -> None:
         self.img_path = img_path
         self.wagyu_site_url = settings.WAGYU_SITE_URL
+        logger = getLogger("wagyuer")
+        logger.info(f"img path:{img_path}")
 
     def get_individual_id(self, img_path: str) -> str:
         # setting pyocr

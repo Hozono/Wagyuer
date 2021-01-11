@@ -1,10 +1,10 @@
 from datetime import datetime
 
-from django.views.generic import CreateView, DetailView
 from django.urls import reverse_lazy
+from django.views.generic import CreateView, DetailView
 
 from wagyuer.forms import ImageUploadForm
-from wagyuer.models import WagyuPackageImg, WagyuInfomation
+from wagyuer.models import WagyuInfomation, WagyuPackageImg
 from wagyuer.modules.wagyuer import Wagyuer
 
 

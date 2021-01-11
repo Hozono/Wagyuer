@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+from datetime import datetime
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -126,6 +127,44 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "filters": {
+        "require_debug_true": {
+            "()": "django.utils.log.RequireDebugTrue",
+        },
+    },
+    "formatters": {
+        "wagyuer": {
+            "format": "%(levelname)s %(asctime)s %(module)s %(lineno)d %(message)s"
+        },
+    },
+    "handlers": {
+        "wagyuer_console": {
+            "level": "INFO",
+            "filters": ["require_debug_true"],
+            "class": "logging.StreamHandler",
+            "formatter": "wagyuer",
+        },
+        "wagyuer_file": {
+            "level": "INFO",
+            "class": "logging.handlers.TimedRotatingFileHandler",
+            "formatter": "wagyuer",
+            "filename": "log/" + datetime.now().strftime("%Y%m%d") + ".log",
+            "when": "MIDNIGHT",
+            "backupCount": "100",
+        },
+    },
+    "loggers": {
+        "wagyuer": {
+            "handlers": ["wagyuer_console", "wagyuer_file"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
 
 # Original settings
 WAGYU_SITE_URL = "https://www.id.nlbc.go.jp/top.html?pc"
