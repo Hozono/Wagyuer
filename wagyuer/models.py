@@ -7,9 +7,6 @@ class WagyuPackageImg(models.Model):
     upload_date = models.DateTimeField(auto_now_add=True)
     img = models.ImageField(verbose_name="アップロード画像", upload_to="uploads/%Y/%m/%d/")
 
-    # def __str__(self):
-    #     return self.img
-
 
 class WagyuInfomation(models.Model):
     """和牛情報を保存するテーブル"""
