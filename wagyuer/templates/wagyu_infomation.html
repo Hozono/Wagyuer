@@ -1,1 +1,44 @@
-{{test.pk}}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>和牛情報</title>
+</head>
+
+<body>
+    <a href="{% url 'wagyuer:index' %}">TOP</a>
+    <h1>和牛情報</h1>
+    <table>
+        <tr>
+            <th>個体識別番号</th>
+            <td>{{ wagyu_infomation.individual_id}}</td>
+        </tr>
+        <tr>
+            <th>種別</th>
+            <td>{{ wagyu_infomation.kind}}</td>
+        </tr>
+        <tr>
+            <th>性別</th>
+            <td>{{ wagyu_infomation.sex}}</td>
+        </tr>
+        <tr>
+            <th>出生日</th>
+            <td>{{ wagyu_infomation.birth_date}}</td>
+        </tr>
+        <tr>
+            <th>出生場所</th>
+            <td>{{ wagyu_infomation.birth_place}}</td>
+        </tr>
+        <tr>
+            <th>と畜日</th>
+            <td>{{ wagyu_infomation.slaughter_date}}</td>
+        </tr>
+        <tr>
+            <th>と畜場所</th>
+            <td>{{ wagyu_infomation.slaughter_place}}</td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -43,4 +43,4 @@ class IndexView(CreateView):
 class WagyuInfomationView(DetailView):
     model = WagyuInfomation
     template_name = "wagyu_infomation.html"
-    context_object_name = "WagyuInfomation"
+    context_object_name = "wagyu_infomation"
