@@ -15,7 +15,7 @@ class Wagyuer:
         self.img_path = img_path
         self.wagyu_site_url = settings.WAGYU_SITE_URL
         logger = getLogger("wagyuer")
-        logger.info(f"img path:{img_path}")
+        logger.info(f"img path:{self.img_path}")
 
     def get_individual_id(self, img_path: str) -> str:
         # setting pyocr

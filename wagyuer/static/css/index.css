@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap');
+
+
 label, button{
     appearance: none;
     margin: 0;
@@ -51,4 +54,10 @@ label:hover:after, button:hover:after{
 i{
   width: 80%;
   margin: 0 auto;
+}
+
+#logo{
+  font-size: 30px;
+  text-align: center;
+  font-family: 'Rammetto One', cursive;
 }
