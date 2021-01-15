@@ -197,11 +197,10 @@
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
   <script>
 
-    // add csrftoken to HTTP request header
     const csrftoken = Cookies.get('csrftoken');
 
     function csrfSafeMethod(method) {
-      return (/^(GET|HEAD|OPTIONS|TRACE)/.test(method));
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
     }
 
     $.ajaxSetup({
@@ -213,7 +212,7 @@
     });
 
 
-    // send img
+
     $('#upload').ready(() => {
       $('#upload').on('click', () => {
         const img = $("#input").prop('files')[0];
@@ -227,7 +226,7 @@
           'contentType': false,
           'data': formData,
         }).done(response => {
-
+          console.log("sucess");
         });
       })
     })
@@ -243,7 +242,7 @@
         <input name="img" type="file" id="input">
       </label>
       <button type="button">
-        <img src="../static/img/cow@2x.svg" class="cow-C61RwL" id=upload>
+        <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL" id=upload>
       </button>
       <div class="wagyuer-C61RwL valign-text-middle">WAGYUER</div>
       <div class="contents-C61RwL">
