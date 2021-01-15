@@ -197,6 +197,11 @@
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
   <script>
 
+    $(window).on('load', function () {
+      $("#wagyu_info_table").hide();
+
+    });
+
     const csrftoken = Cookies.get('csrftoken');
 
     function csrfSafeMethod(method) {
@@ -228,6 +233,15 @@
         }).done(response => {
           const wagyu_info = JSON.parse(response)[0]["fields"]
           console.log(wagyu_info);
+          $("#individual_id").append(wagyu_info["individual_id"]);
+          $("#kind").append(wagyu_info["kind"]);
+          $("#sex").append(wagyu_info["sex"]);
+          $("#birth_date").append(wagyu_info["birth_date"]);
+          $("#birth_place").append(wagyu_info["birth_place"]);
+          $("#slaughter_date").append(wagyu_info["slaughter_date"]);
+          $("#slaughter_place").append(wagyu_info["slaughter_place"]);
+          $("#wagyu_info_table").show();
+
         });
       })
     })
@@ -247,8 +261,37 @@
       </button>
       <div class="wagyuer-C61RwL valign-text-middle">WAGYUER</div>
       <div class="contents-C61RwL">
-        {% block content %}
-        {% endblock %}
+
+        <table id="wagyu_info_table">
+          <tr>
+            <th>個体識別番号</th>
+            <td id="individual_id"></td>
+          </tr>
+          <tr>
+            <th>種別</th>
+            <td id="kind"></td>
+          </tr>
+          <tr>
+            <th>性別</th>
+            <td id="sex"></td>
+          </tr>
+          <tr>
+            <th>出生日</th>
+            <td id="birth_date"></td>
+          </tr>
+          <tr>
+            <th>出生場所</th>
+            <td id="birth_place"></td>
+          </tr>
+          <tr>
+            <th>と畜日</th>
+            <td id="slaughter_date"></td>
+          </tr>
+          <tr>
+            <th>と畜場所</th>
+            <td id="slaughter_place"></td>
+          </tr>
+        </table>
       </div>
     </div>
   </div>
