@@ -187,6 +187,10 @@
     #input {
       display: none;
     }
+
+    button {
+      padding: 0;
+    }
   </style>
   <meta name="author" content="AnimaApp.com - Design to code, Automated." />
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
@@ -197,7 +201,7 @@
     const csrftoken = Cookies.get('csrftoken');
 
     function csrfSafeMethod(method) {
-      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+      return (/^(GET|HEAD|OPTIONS|TRACE)/.test(method));
     }
 
     $.ajaxSetup({
@@ -234,19 +238,18 @@
   <input type="hidden" id="anPageName" name="page" value="android" />
   <div class="container-center-horizontal">
     <div class="android screen">
-      <form id="img_form" method="post" enctype="multipart/form-data">
-        <label>
-          <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
-          <input name="img" type="file" id="input">
-        </label>
-        <button type="button">
-          <img src="../static/img/cow@2x.svg" class="cow-C61RwL" id=upload>
-        </button>
-        <div class="wagyuer-C61RwL valign-text-middle">WAGYUER</div>
-        <div class="contents-C61RwL">
-          {% block content %}
-          {% endblock %}
-        </div>
+      <label>
+        <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
+        <input name="img" type="file" id="input">
+      </label>
+      <button type="button">
+        <img src="../static/img/cow@2x.svg" class="cow-C61RwL" id=upload>
+      </button>
+      <div class="wagyuer-C61RwL valign-text-middle">WAGYUER</div>
+      <div class="contents-C61RwL">
+        {% block content %}
+        {% endblock %}
+      </div>
     </div>
   </div>
 </body>
