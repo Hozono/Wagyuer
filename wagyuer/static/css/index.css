@@ -1,63 +1,50 @@
-@import url('https://fonts.googleapis.com/css2?family=Rammetto+One&display=swap');
+/* screen - android */
 
-
-label, button{
-    appearance: none;
-    margin: 0;
-    padding: 0;
-    background: none;
-    border: none;
-    border-radius: 0;
-    outline: none;
-}
-label, button {
+.android {
+  background-color: rgba(255,255,255,1.0);
+  height: 640px;
+  overflow: hidden;
+  overflow-x: hidden;
   position: relative;
-  display: block;
-  padding: 1em 2em 1em 1em;
-  width: 120px;
-  font-size: 12px;
-  color: #fff;
-  text-align: center;
-    line-height: 1;
-  background: #5bbee5;
-  background: linear-gradient(to right, #5bbee5, #52ddae);
-  text-indent: 0.1em;
-  letter-spacing: 0.1em;
-  border-radius: 1.5em;
+  width: 360px;
 }
-
-label:after, button:after {
-  content: "";
+.android .contents-C61RwL {
+  background-color: rgba(255,255,255,1.0);
+  height: 473px;
+  left: 22px;
   position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 1.5em;
-  margin: auto;
-  display: inline-block;
-  width: 0.5em;
-  height: 0.5em;
-  border-right: 1px solid #fff;
-  border-top: 1px solid #fff;
-  transform: rotate(45deg);
-  transition: right 0.5s;
+  top: 60px;
+  width: 315px;
 }
-
-label:hover:after, button:hover:after{
-  right: 1em;
+.android .cow-C61RwL {
+  background-color: transparent;
+  height: 64px;
+  left: 221px;
+  position: absolute;
+  top: 546px;
+  width: 67px;
 }
-
-
-#id_img {
-  display: none;
+.android .upload-C61RwL {
+  background-color: transparent;
+  height: 80px;
+  left: 65px;
+  position: absolute;
+  top: 538px;
+  width: 80px;
 }
-
-i{
-  width: 80%;
-  margin: 0 auto;
-}
-
-#logo{
-  font-size: 30px;
+.android .wagyuer-C61RwL {
+  background-color: transparent;
+  color: rgba(0,0,0,1.0);
+  font-family: 'Rammetto One', Helvetica, Arial, serif;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  height: 43px;
+  left: 93px;
+  letter-spacing: 0.00px;
+  line-height: normal;
+  position: absolute;
   text-align: center;
-  font-family: 'Rammetto One', cursive;
+  top: 17px;
+  width: 163px;
 }

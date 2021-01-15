@@ -184,30 +184,69 @@
       cursor: pointer;
     }
 
-    #id_img {
+    #input {
       display: none;
     }
   </style>
   <meta name="author" content="AnimaApp.com - Design to code, Automated." />
+  <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+  <script>
+
+    // add csrftoken to HTTP request header
+    const csrftoken = Cookies.get('csrftoken');
+
+    function csrfSafeMethod(method) {
+      return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
+
+    $.ajaxSetup({
+      beforeSend: function (xhr, settings) {
+        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+          xhr.setRequestHeader("X-CSRFToken", csrftoken);
+        }
+      }
+    });
+
+
+    // send img
+    $('#upload').ready(() => {
+      $('#upload').on('click', () => {
+        const img = $("#input").prop('files')[0];
+        const formData = new FormData();
+        formData.append('img', img);
+
+        $.ajax({
+          'url': "http://localhost:8000/api/0.1/packages/",
+          'type': 'POST',
+          'processData': false,
+          'contentType': false,
+          'data': formData,
+        }).done(response => {
+
+        });
+      })
+    })
+  </script>
 </head>
 
 <body style="margin: 0; background: rgba(255, 255, 255, 1)">
   <input type="hidden" id="anPageName" name="page" value="android" />
   <div class="container-center-horizontal">
     <div class="android screen">
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token%}
+      <form id="img_form" method="post" enctype="multipart/form-data">
         <label>
           <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
-          {{ form.img }}
+          <input name="img" type="file" id="input">
         </label>
-        <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL">
-      </form>
-      <div class="wagyuer-C61RwL valign-text-middle">WAGYUER</div>
-      <div class="contents-C61RwL">
-        {% block content %}
-        {% endblock %}
-      </div>
+        <button type="button">
+          <img src="../static/img/cow@2x.svg" class="cow-C61RwL" id=upload>
+        </button>
+        <div class="wagyuer-C61RwL valign-text-middle">WAGYUER</div>
+        <div class="contents-C61RwL">
+          {% block content %}
+          {% endblock %}
+        </div>
     </div>
   </div>
 </body>

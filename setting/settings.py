@@ -26,7 +26,7 @@ SECRET_KEY = "+ol$_z(hnl_p-@x8jjkh+#*q*6=3nap61gzppcqcnizgpt7plt"
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
     "wagyuer.apps.WagyuerConfig",
     "django.contrib.admindocs",
     "django_docutils",
