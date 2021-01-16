@@ -191,16 +191,48 @@
     button {
       padding: 0;
     }
+
+    #wagyu_info_table {
+      display: none;
+    }
+
+    #loader-bg {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+      background: #fff;
+
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    #loader {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      margin-top: -100px;
+      margin-left: -100px;
+      text-align: center;
+      color: #fff;
+      z-index: 2;
+    }
+
+    #load-message {
+      color: rgba(47, 46, 49, 0.952);
+      font-size: 20px;
+    }
   </style>
   <meta name="author" content="AnimaApp.com - Design to code, Automated." />
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
   <script>
 
-    $(window).on('load', function () {
-      $("#wagyu_info_table").hide();
-
-    });
 
     const csrftoken = Cookies.get('csrftoken');
 
@@ -217,12 +249,18 @@
     });
 
 
-
+    // Ajaxを使った画像のアップロート
     $('#upload').ready(() => {
       $('#upload').on('click', () => {
+
+        // 送信する画像データの取得
         const img = $("#input").prop('files')[0];
         const formData = new FormData();
         formData.append('img', img);
+
+        // ロード画面の表示
+        $('#loader').show();
+        $('#loader-bg').show();
 
         $.ajax({
           'url': "http://localhost:8000/api/0.1/packages/",
@@ -231,8 +269,13 @@
           'contentType': false,
           'data': formData,
         }).done(response => {
+          // ロード画面の非表示
+          $('#loader').hide();
+          $('#loader-bg').hide();
+
+
+          // 和牛の情報を表示
           const wagyu_info = JSON.parse(response)[0]["fields"]
-          console.log(wagyu_info);
           $("#individual_id").append(wagyu_info["individual_id"]);
           $("#kind").append(wagyu_info["kind"]);
           $("#sex").append(wagyu_info["sex"]);
@@ -242,9 +285,14 @@
           $("#slaughter_place").append(wagyu_info["slaughter_place"]);
           $("#wagyu_info_table").show();
 
+        }).fail(response => {
+          alert("通信に失敗しました。");
+          $('#loader').hide();
+          $('#loader-bg').hide();
         });
       })
     })
+
   </script>
 </head>
 
@@ -260,38 +308,47 @@
         <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL" id=upload>
       </button>
       <div class="wagyuer-C61RwL valign-text-middle">WAGYUER</div>
-      <div class="contents-C61RwL">
 
-        <table id="wagyu_info_table">
-          <tr>
-            <th>個体識別番号</th>
-            <td id="individual_id"></td>
-          </tr>
-          <tr>
-            <th>種別</th>
-            <td id="kind"></td>
-          </tr>
-          <tr>
-            <th>性別</th>
-            <td id="sex"></td>
-          </tr>
-          <tr>
-            <th>出生日</th>
-            <td id="birth_date"></td>
-          </tr>
-          <tr>
-            <th>出生場所</th>
-            <td id="birth_place"></td>
-          </tr>
-          <tr>
-            <th>と畜日</th>
-            <td id="slaughter_date"></td>
-          </tr>
-          <tr>
-            <th>と畜場所</th>
-            <td id="slaughter_place"></td>
-          </tr>
-        </table>
+      <div id="loader-bg">
+        <div id="loader">
+          <p id="load-message">Now Loading...</p>
+          <img src="../static/img/preloader.gif" width="80" height="80" alt="Now Loading..." />
+        </div>
+      </div>
+
+      <div id="wrap">
+        <div class="contents-C61RwL">
+          <table id="wagyu_info_table">
+            <tr>
+              <th>個体識別番号</th>
+              <td id="individual_id"></td>
+            </tr>
+            <tr>
+              <th>種別</th>
+              <td id="kind"></td>
+            </tr>
+            <tr>
+              <th>性別</th>
+              <td id="sex"></td>
+            </tr>
+            <tr>
+              <th>出生日</th>
+              <td id="birth_date"></td>
+            </tr>
+            <tr>
+              <th>出生場所</th>
+              <td id="birth_place"></td>
+            </tr>
+            <tr>
+              <th>と畜日</th>
+              <td id="slaughter_date"></td>
+            </tr>
+            <tr>
+              <th>と畜場所</th>
+              <td id="slaughter_place"></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </div>
