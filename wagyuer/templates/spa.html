@@ -184,7 +184,7 @@
       cursor: pointer;
     }
 
-    #input {
+    #select-img {
       display: none;
     }
 
@@ -231,6 +231,9 @@
   <meta name="author" content="AnimaApp.com - Design to code, Automated." />
   <script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script>
 
 
@@ -254,7 +257,7 @@
       $('#upload').on('click', () => {
 
         // 送信する画像データの取得
-        const img = $("#input").prop('files')[0];
+        const img = $("#select-img").prop('files')[0];
         const formData = new FormData();
         formData.append('img', img);
 
@@ -300,10 +303,12 @@
   <input type="hidden" id="anPageName" name="page" value="android" />
   <div class="container-center-horizontal">
     <div class="android screen">
-      <label>
-        <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
-        <input name="img" type="file" id="input">
-      </label>
+      <div id=vue>
+        <label>
+          <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
+          <input name="img" type="file" id="select-img" v-on:change="fileSelected" ref="selectedImg">
+        </label>
+      </div>
       <button type="button">
         <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL" id=upload>
       </button>
@@ -315,8 +320,6 @@
           <img src="../static/img/preloader.gif" width="80" height="80" alt="Now Loading..." />
         </div>
       </div>
-
-
 
       <div id="wrap">
         <div class="contents-C61RwL">
@@ -354,22 +357,50 @@
       </div>
     </div>
   </div>
-
-  <div id="counter">
-    Counter: [[message]]
-  </div>
+  <!-- 
+  <div id="counter" v-on:click="fileSelected">
+    <input v-on:change="fileSelected">
+  </div> -->
 </body>
-<script src="https://unpkg.com/vue@next"></script>
 <script>
   // Vue
+  // Vue.createApp({
+  //   delimiters: ['[[', ']]'],
+  //   data() {
+  //     return {
+  //       message: 'Vue.js 3。それは私です！',
+  //     }
+  //   },
+  //   methods: {
+  //     fileSelected(event) {
+  //       console.log(event);
+  //       return 0
+  //     }
+  //   }
+  // }).mount('#counter');
+
+
   Vue.createApp({
-    delimiters: ['[[', ']]'],
-    data() {
-      return {
-        message: 'Vue.js 3。それは私です！',
+    methods: {
+      fileSelected(event) {
+        const selectedImg = this.$refs.selectedImg.files[0];
+        const formData = new FormData();
+        formData.append('img',selectedImg);
+
+        const csrftoken = Cookies.get('csrftoken');
+        const config = {
+          headers:{
+            "X-CSRFToken":csrftoken 
+          }
+        }
+
+        axios
+          .post("http://localhost:8000/api/0.1/packages/",formData,config)
+          .then(response => (console.log(response)))
+          .catch(error => (console.log(error)))
       }
     }
-  }).mount('#counter');
+  }).mount('#vue');
 
 </script>
 
