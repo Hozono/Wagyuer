@@ -316,6 +316,8 @@
         </div>
       </div>
 
+
+
       <div id="wrap">
         <div class="contents-C61RwL">
           <table id="wagyu_info_table">
@@ -352,6 +354,23 @@
       </div>
     </div>
   </div>
+
+  <div id="counter">
+    Counter: [[message]]
+  </div>
 </body>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+  // Vue
+  Vue.createApp({
+    delimiters: ['[[', ']]'],
+    data() {
+      return {
+        message: 'Vue.js 3。それは私です！',
+      }
+    }
+  }).mount('#counter');
+
+</script>
 
 </html>
