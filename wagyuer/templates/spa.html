@@ -304,8 +304,7 @@
   <div class="container-center-horizontal">
     <div class="android screen">
       <div id=vue>
-      
-        <input type=text id=individualNum v-model="individualNum">
+        <input type=text id=individualNum v-model="individualNum" v-show="show">
         <label>
           <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
           <input name="img" type="file" id="select-img" v-on:change="fileSelected" ref="selectedImg">
@@ -365,28 +364,12 @@
   </div> -->
 </body>
 <script>
-  // Vue
-  // Vue.createApp({
-  //   delimiters: ['[[', ']]'],
-  //   data() {
-  //     return {
-  //       message: 'Vue.js 3。それは私です！',
-  //     }
-  //   },
-  //   methods: {
-  //     fileSelected(event) {
-  //       console.log(event);
-  //       return 0
-  //     }
-  //   }
-  // }).mount('#counter');
-
-
   Vue.createApp({
     delimiters: ['[[', ']]'],
     data() {
       return {
-        individualNum: ""
+        individualNum: "",
+        data: false
       }
     },
     methods: {
@@ -408,7 +391,8 @@
           .post("http://localhost:8000/api/0.1/packages/", formData, config)
           .then(response => {
             this.individualNum = response.data.individual_num;
-            console.log(self.individualNum);
+            this.show = true
+            console.log(this.individualNum);
           })
           .catch(error => (console.log(error)))
       }

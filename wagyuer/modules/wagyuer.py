@@ -35,7 +35,7 @@ class Wagyuer:
 
         return individual_id
 
-    def get_wagyu_infomation(self, individual_id: str, url: str):
+    def get_wagyu_infomation(self, individual_id: str):
         # setting chrome
         option = Options()
         option.add_argument("--headless")
@@ -45,7 +45,7 @@ class Wagyuer:
         wagyu_infomation = {}
         # get wagyu info
         try:
-            driver.get(url)
+            driver.get(self.wagyu_site_url)
 
             # 「個体識別番号の検索」ボタンのクリック
             driver.find_element_by_class_name("nlbc_button_search").click()

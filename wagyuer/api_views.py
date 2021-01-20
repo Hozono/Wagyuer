@@ -3,13 +3,14 @@ from datetime import datetime
 
 from django.core import serializers
 from django.core.serializers.json import DjangoJSONEncoder
+from rest_framework import generics, views
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from wagyuer.models import WagyuInfomation, WagyuPackageImg
 from wagyuer.modules.wagyuer import Wagyuer
 
-from .serializers import PackageSerializer
+from .serializers import PackageSerializer, WagyuIdSerializer
 
 
 class PackageViewSet(ModelViewSet):
@@ -23,8 +24,6 @@ class PackageViewSet(ModelViewSet):
         img_path = WagyuPackageImg.objects.latest("upload_date").img.path
         wagyuer = Wagyuer()
         individual_num = wagyuer.get_individual_id(img_path)
-        print(individual_num)
-        # wagyu_infomation = wagyuer.main()
 
         # # save wagyu infomation
         # wagyu_info = WagyuInfomation.objects.create(
@@ -51,3 +50,14 @@ class PackageViewSet(ModelViewSet):
         # return Response(wagyu_info_json)
         response.data["individual_num"] = individual_num
         return response
+
+
+class WagyuInfomationAPIView(views.APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = WagyuIdSerializer(data=request.data)
+        serializer.is_valid()
+        wagyu_id = serializer.validated_data["wagyu_id"]
+        wagyuer = Wagyuer()
+        wagyu_infomation = wagyuer.get_wagyu_infomation(wagyu_id)
+
+        return Response(wagyu_infomation)
