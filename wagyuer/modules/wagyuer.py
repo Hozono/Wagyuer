@@ -11,11 +11,9 @@ from selenium.webdriver.chrome.options import Options  # オプションを使�
 
 
 class Wagyuer:
-    def __init__(self, img_path: str) -> None:
-        self.img_path = img_path
+    def __init__(self) -> None:
         self.wagyu_site_url = settings.WAGYU_SITE_URL
         logger = getLogger("wagyuer")
-        logger.info(f"img path:{self.img_path}")
 
     def get_individual_id(self, img_path: str) -> str:
         # setting pyocr
@@ -108,8 +106,8 @@ class Wagyuer:
 
         return wagyu_infomation
 
-    def main(self):
-        individual_id = self.get_individual_id(img_path=self.img_path)
+    def main(self, img_path: str):
+        individual_id = self.get_individual_id(img_path)
         wagyu_infomation = self.get_wagyu_infomation(individual_id, self.wagyu_site_url)
 
         return wagyu_infomation

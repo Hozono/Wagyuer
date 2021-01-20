@@ -304,6 +304,8 @@
   <div class="container-center-horizontal">
     <div class="android screen">
       <div id=vue>
+      
+        <input type=text id=individualNum v-model="individualNum">
         <label>
           <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
           <input name="img" type="file" id="select-img" v-on:change="fileSelected" ref="selectedImg">
@@ -381,22 +383,33 @@
 
 
   Vue.createApp({
+    delimiters: ['[[', ']]'],
+    data() {
+      return {
+        individualNum: ""
+      }
+    },
     methods: {
       fileSelected(event) {
         const selectedImg = this.$refs.selectedImg.files[0];
         const formData = new FormData();
-        formData.append('img',selectedImg);
+        formData.append('img', selectedImg);
 
+        // Django CSRF token
         const csrftoken = Cookies.get('csrftoken');
         const config = {
-          headers:{
-            "X-CSRFToken":csrftoken 
+          headers: {
+            "X-CSRFToken": csrftoken
           }
         }
 
+        // Ajax to get wagyuu individual number
         axios
-          .post("http://localhost:8000/api/0.1/packages/",formData,config)
-          .then(response => (console.log(response)))
+          .post("http://localhost:8000/api/0.1/packages/", formData, config)
+          .then(response => {
+            this.individualNum = response.data.individual_num;
+            console.log(self.individualNum);
+          })
           .catch(error => (console.log(error)))
       }
     }
