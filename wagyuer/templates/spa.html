@@ -303,16 +303,17 @@
   <input type="hidden" id="anPageName" name="page" value="android" />
   <div class="container-center-horizontal">
     <div class="android screen">
-      <div id=vue>
-        <input type=text id=individualNum v-model="individualNum" v-show="show">
+      <div id=wagyuerVue>
+        <input type=text id=wagyuId v-model="wagyuId" v-show="show">
         <label>
           <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
           <input name="img" type="file" id="select-img" v-on:change="fileSelected" ref="selectedImg">
         </label>
+        <button type="button">
+          <!-- <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL" id=upload> -->
+          <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL" @click="postWagyuId">
+        </button>
       </div>
-      <button type="button">
-        <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL" id=upload>
-      </button>
       <div class="wagyuer-C61RwL valign-text-middle">WAGYUER</div>
 
       <div id="loader-bg">
@@ -358,17 +359,13 @@
       </div>
     </div>
   </div>
-  <!-- 
-  <div id="counter" v-on:click="fileSelected">
-    <input v-on:change="fileSelected">
-  </div> -->
 </body>
 <script>
   Vue.createApp({
     delimiters: ['[[', ']]'],
     data() {
       return {
-        individualNum: "",
+        wagyuId: "",
         data: false
       }
     },
@@ -390,14 +387,36 @@
         axios
           .post("http://localhost:8000/api/0.1/packages/", formData, config)
           .then(response => {
-            this.individualNum = response.data.individual_num;
+            this.wagyuId = response.data.wagyu_id;
             this.show = true
-            console.log(this.individualNum);
+            console.log(this.wagyuId);
+          })
+          .catch(error => (console.log(error)))
+      },
+      postWagyuId(event) {
+        const formData = new FormData();
+        formData.append('wagyu_id', this.wagyuId);
+
+        // Django CSRF token
+        const csrftoken = Cookies.get('csrftoken');
+        const config = {
+          headers: {
+            "X-CSRFToken": csrftoken
+          }
+        }
+
+        // Ajax to get wagyuu individual number
+        axios
+          .post("http://localhost:8000/api/0.1/wagyuId/", formData, config)
+          .then(response => {
+            console.log(response);
+            const wagyuInfomation = response.data;
+            console.log(wagyuInfomation);
           })
           .catch(error => (console.log(error)))
       }
     }
-  }).mount('#vue');
+  }).mount('#wagyuerVue');
 
 </script>
 
