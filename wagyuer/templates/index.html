@@ -193,20 +193,20 @@
     }
 
     #loader-bg {
-      display: none;
+      /* display: none; */
       position: fixed;
       width: 100%;
       height: 100%;
       top: 0px;
       left: 0px;
-      background: #fff;
+      background: rgb(128, 127, 127);
 
       z-index: 1;
       opacity: 0.5;
     }
 
     #loader {
-      display: none;
+      /* display: none; */
       position: fixed;
       top: 50%;
       left: 50%;
@@ -249,49 +249,54 @@
         <h1 id="logo">WAGYUER</h1>
       </nav>
       <div id=wagyuerVue>
-        <input type=text id=wagyuId v-model="wagyuId" v-show="show">
+        <!-- 個体識別番号を表示・編集 -->
+        <input type=text id=wagyuId v-model="wagyuId" v-show="wagyuId">
+
+        <!-- 画像の選択 -->
         <label>
           <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
           <input name="img" type="file" id="select-img" v-on:change="fileSelected" ref="selectedImg">
         </label>
+
+        <!-- 個体識別番号の送信 -->
         <button type="button">
           <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL" @click="postWagyuId">
         </button>
-        <template v-for="value,key in wagyuInformation">
-          <table>
-            <tr>
-              <th>[[key]]</th>
-              <td> [[value]]</td>
-            </tr>
+
+        <!-- 和牛情報の表示 -->
+        <template v-if="wagyuInformation">
+          <template v-for="value,key in wagyuInformation">
+            <table>
+              <tr>
+                <th>[[key]]</th>
+                <td> [[value]]</td>
+              </tr>
+          </template>
         </template>
         </table>
+
+        <!-- ローディング画面 -->
+        <div id="loader-bg">
+          <div id="loader">
+            <p id="load-message">Now Loading...</p>
+            <img src="../static/img/preloader.gif" width="80" height="80" alt="Now Loading..." />
+          </div>
+        </div>
+
       </div>
 
-
-      <!-- <div id="loader-bg">
-        <div id="loader">
-          <p id="load-message">Now Loading...</p>
-          <img src="../static/img/preloader.gif" width="80" height="80" alt="Now Loading..." />
-        </div>
-      </div> -->
-
-
-      <!-- <div id="wrap">
-        <div class="contents-C61RwL">
-
-        </div>
-      </div> -->
     </div>
   </div>
 </body>
+
 <script>
   Vue.createApp({
     delimiters: ['[[', ']]'],
     data() {
       return {
         wagyuId: "",
-        data: false,
         wagyuInformation: "",
+        // wagyuIdLoaderder: true,
       }
     },
     methods: {
