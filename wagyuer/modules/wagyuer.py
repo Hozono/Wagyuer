@@ -76,11 +76,11 @@ class Wagyuer:
 
             for th, td in zip(ths, tds):
                 if th.text == "個体識別番号":
-                    wagyu_infomation["individual_id"] = td.text
+                    wagyu_infomation["個体識別番号"] = td.text
                 elif th.text == "雌雄の別":
-                    wagyu_infomation["sex"] = td.text
+                    wagyu_infomation["性別"] = td.text
                 elif th.text == "種別":
-                    wagyu_infomation["kind"] = td.text
+                    wagyu_infomation["種別"] = td.text
 
             # 「異動情報」の取得
             moving_info = driver.find_element_by_xpath(
@@ -92,14 +92,14 @@ class Wagyuer:
                 for id, td in enumerate(tds):
                     if td.text == "出生":
                         birth_date = tds[id + 1].text
-                        wagyu_infomation["birth_date"] = birth_date
+                        wagyu_infomation["出生日"] = birth_date
                         birth_place = tds[id + 2].text + tds[id + 3].text
-                        wagyu_infomation["birth_place"] = birth_place
+                        wagyu_infomation["出生場所"] = birth_place
                     elif td.text == "と畜":
                         slaughter_date = tds[id + 1].text
-                        wagyu_infomation["slaughter_date"] = slaughter_date
+                        wagyu_infomation["と畜日"] = slaughter_date
                         slaughter_place = tds[id + 2].text + tds[id + 3].text
-                        wagyu_infomation["slaughter_place"] = slaughter_place
+                        wagyu_infomation["と畜場所"] = slaughter_place
 
         finally:
             driver.quit()

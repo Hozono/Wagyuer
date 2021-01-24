@@ -184,32 +184,163 @@
       cursor: pointer;
     }
 
-    #id_img {
+    #select-img {
       display: none;
     }
+
+    button {
+      padding: 0;
+    }
+
+    #loader-bg {
+      display: none;
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0px;
+      left: 0px;
+      background: #fff;
+
+      z-index: 1;
+      opacity: 0.5;
+    }
+
+    #loader {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      height: 200px;
+      margin-top: -100px;
+      margin-left: -100px;
+      text-align: center;
+      color: #fff;
+      z-index: 2;
+    }
+
+    #load-message {
+      color: rgba(47, 46, 49, 0.952);
+      font-size: 20px;
+    }
+
+    #logo {
+      background-color: transparent;
+      color: rgba(0, 0, 0, 1.0);
+      font-family: 'Rammetto One', Helvetica, Arial, serif;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0.00px;
+      text-align: center;
+    }
   </style>
-  <meta name="author" content="AnimaApp.com - Design to code, Automated." />
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 
 <body style="margin: 0; background: rgba(255, 255, 255, 1)">
   <input type="hidden" id="anPageName" name="page" value="android" />
   <div class="container-center-horizontal">
     <div class="android screen">
-      <form method="post" enctype="multipart/form-data">
-        {% csrf_token%}
+      <nav class="navbar navbar-dark bg-primary mb-2">
+        <h1 id="logo">WAGYUER</h1>
+      </nav>
+      <div id=wagyuerVue>
+        <input type=text id=wagyuId v-model="wagyuId" v-show="show">
         <label>
           <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
-          {{ form.img }}
+          <input name="img" type="file" id="select-img" v-on:change="fileSelected" ref="selectedImg">
         </label>
-        <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL">
-      </form>
-      <div class="wagyuer-C61RwL valign-text-middle">WAGYUER</div>
-      <div class="contents-C61RwL">
-        {% block content %}
-        {% endblock %}
+        <button type="button">
+          <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL" @click="postWagyuId">
+        </button>
+        <template v-for="value,key in wagyuInformation">
+          <table>
+            <tr>
+              <th>[[key]]</th>
+              <td> [[value]]</td>
+            </tr>
+        </template>
+        </table>
       </div>
+
+
+      <!-- <div id="loader-bg">
+        <div id="loader">
+          <p id="load-message">Now Loading...</p>
+          <img src="../static/img/preloader.gif" width="80" height="80" alt="Now Loading..." />
+        </div>
+      </div> -->
+
+
+      <!-- <div id="wrap">
+        <div class="contents-C61RwL">
+
+        </div>
+      </div> -->
     </div>
   </div>
 </body>
+<script>
+  Vue.createApp({
+    delimiters: ['[[', ']]'],
+    data() {
+      return {
+        wagyuId: "",
+        data: false,
+        wagyuInformation: "",
+      }
+    },
+    methods: {
+      fileSelected(event) {
+        const selectedImg = this.$refs.selectedImg.files[0];
+        const formData = new FormData();
+        formData.append('img', selectedImg);
+
+        // Django CSRF token
+        const csrftoken = Cookies.get('csrftoken');
+        const config = {
+          headers: {
+            "X-CSRFToken": csrftoken
+          }
+        }
+
+        // Ajax to get wagyuu individual number
+        axios
+          .post("http://localhost:8000/api/0.1/packages/", formData, config)
+          .then(response => {
+            this.wagyuId = response.data.wagyu_id;
+            this.show = true
+          })
+          .catch(error => (console.log(error)))
+      },
+      postWagyuId(event) {
+        const formData = new FormData();
+        formData.append('wagyu_id', this.wagyuId);
+
+        // Django CSRF token
+        const csrftoken = Cookies.get('csrftoken');
+        const config = {
+          headers: {
+            "X-CSRFToken": csrftoken
+          }
+        }
+
+        // Ajax to get wagyu infomation
+        axios
+          .post("http://localhost:8000/api/0.1/wagyuId/", formData, config)
+          .then(response => {
+            console.log(response.data);
+            this.wagyuInformation = response.data;
+          })
+          .catch(error => (console.log(error)))
+      }
+    }
+  }).mount('#wagyuerVue');
+
+</script>
 
 </html>
