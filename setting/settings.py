@@ -149,18 +149,19 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "wagyuer",
         },
-        "wagyuer_file": {
-            "level": "INFO",
-            "class": "logging.handlers.TimedRotatingFileHandler",
-            "formatter": "wagyuer",
-            "filename": "log/" + datetime.now().strftime("%Y%m%d") + ".log",
-            "when": "MIDNIGHT",
-            "backupCount": "100",
-        },
+        # "wagyuer_file": {
+        #     "level": "INFO",
+        #     "class": "logging.handlers.TimedRotatingFileHandler",
+        #     "formatter": "wagyuer",
+        #     "filename": "log/" + datetime.now().strftime("%Y%m%d") + ".log",
+        #     "when": "MIDNIGHT",
+        #     "backupCount": "100",
+        # },
     },
     "loggers": {
         "wagyuer": {
-            "handlers": ["wagyuer_console", "wagyuer_file"],
+            # "handlers": ["wagyuer_console", "wagyuer_file"],
+            "handlers": ["wagyuer_console"],
             "level": "INFO",
             "propagate": False,
         },
