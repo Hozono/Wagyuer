@@ -92,8 +92,6 @@ pyOpenSSL==19.0.0
 pyparsing==2.4.7
 pyrsistent==0.15.5
 pyserial==3.4
-python-apt==2.0.0+ubuntu0.20.4.1
-python-debian===0.1.36ubuntu1
 pytz==2020.5
 PyYAML==5.3.1
 regex==2020.11.13
@@ -115,7 +113,6 @@ tomlkit==0.7.0
 Twisted==20.3.0
 typed-ast==1.4.2
 typing-extensions==3.7.4.3
-ubuntu-advantage-tools==20.3
 ufw==0.36
 unattended-upgrades==0.1
 urllib3==1.25.8
