@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <link rel="shortcut icon" href="../static/img/favicon.png" />
+  <meta name="og:type" content="website" />
+  <meta name="twitter:card" content="photo" />
+  <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Rammetto+One:400");
+
+    .component-wrapper a,
+    .screen a {
+      text-decoration: none;
+      display: contents;
+    }
+
+    .full-width-a {
+      width: 100%;
+    }
+
+    .full-height-a {
+      height: 100%;
+    }
+
+    .screen textarea:focus,
+    .screen input:focus {
+      outline: none;
+    }
+
+    .screen *,
+    .component-wrapper * {
+      box-sizing: border-box;
+    }
+
+    .screen div {
+      -webkit-text-size-adjust: none;
+    }
+
+    .container-center-vertical,
+    .container-center-horizontal {
+      pointer-events: none;
+      display: flex;
+      flex-direction: row;
+      padding: 0;
+      margin: 0;
+    }
+
+    .container-center-vertical {
+      align-items: center;
+      height: 100%;
+    }
+
+    .container-center-horizontal {
+      justify-content: center;
+      width: 100%;
+    }
+
+    .container-center-vertical>*,
+    .container-center-horizontal>* {
+      pointer-events: auto;
+      flex-shrink: 0;
+    }
+
+    .component-wrapper,
+    .screen {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      word-break: break-all;
+      word-break: break-word;
+    }
+
+    .auto-animated div {
+      opacity: 0;
+      position: absolute;
+      --z-index: -1;
+    }
+
+    .auto-animated .container-center-vertical,
+    .auto-animated .container-center-horizontal {
+      opacity: 1;
+    }
+
+    .overlay {
+      position: absolute;
+      opacity: 0;
+      display: none;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      position: fixed;
+    }
+
+    .animate-appear {
+      opacity: 0;
+      display: block;
+      animation: reveal 0.3s ease-in-out 1 normal forwards;
+    }
+
+    .animate-disappear {
+      opacity: 1;
+      display: block;
+      animation: reveal 0.3s ease-in-out 1 reverse forwards;
+    }
+
+    .animate-nodelay {
+      animation-delay: 0s;
+    }
+
+    @keyframes reveal {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    .align-self-flex-start {
+      align-self: flex-start;
+    }
+
+    .align-self-flex-end {
+      align-self: flex-end;
+    }
+
+    .align-self-flex-center {
+      align-self: center;
+    }
+
+    .valign-text-middle {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .valign-text-bottom {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .component-wrapper,
+    .component-wrapper * {
+      pointer-events: none;
+    }
+
+    .component-wrapper a *,
+    .component-wrapper a,
+    .component-wrapper input,
+    .component-wrapper video,
+    .component-wrapper iframe,
+    .listeners-active,
+    .listeners-active * {
+      pointer-events: auto;
+    }
+
+    .hidden,
+    .hidden * {
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .smart-layers-pointers,
+    .smart-layers-pointers * {
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    .component-wrapper.not-ready,
+    .component-wrapper.not-ready * {
+      visibility: hidden !important;
+    }
+
+    .listeners-active-click,
+    .listeners-active-click * {
+      cursor: pointer;
+    }
+
+    #select-img {
+      display: none;
+    }
+
+    button {
+      padding: 0;
+    }
+
+    #logo {
+      background-color: transparent;
+      color: rgba(0, 0, 0, 1.0);
+      font-family: 'Rammetto One', Helvetica, Arial, serif;
+      font-size: 18px;
+      font-style: normal;
+      font-weight: 400;
+      letter-spacing: 0.00px;
+      text-align: center;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js"></script>
+  <!-- <script src="https://unpkg.com/vue@next"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.0.0/dist/vue.global.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body style="margin: 0; background: rgba(255, 255, 255, 1)">
+  <input type="hidden" id="anPageName" name="page" value="android" />
+  <div class="container-center-horizontal">
+    <div class="android screen">
+      <nav class="navbar navbar-dark bg-primary mb-2">
+        <h1 id="logo">WAGYUER</h1>
+      </nav>
+      <div id=wagyuerVue>
+        <!-- 個体識別番号を表示・編集 -->
+        <input type=text id=wagyuId v-model="wagyuId" v-show="wagyuId">
+
+        <!-- 画像の選択 -->
+        <label>
+          <img class="upload-C61RwL" src="../static/img/upload@1x.png" />
+          <input name="img" type="file" id="select-img" v-on:change="fileSelected" ref="selectedImg">
+        </label>
+
+        <!-- 個体識別番号の送信 -->
+        <button type="button">
+          <input type="image" src="../static/img/cow@2x.svg" class="cow-C61RwL" @click="postWagyuId">
+        </button>
+
+        <!-- 和牛情報の表示 -->
+        <template v-if="wagyuInformation">
+          <template v-for="value,key in wagyuInformation">
+            <table>
+              <tr>
+                <th>[[key]]</th>
+                <td> [[value]]</td>
+              </tr>
+          </template>
+        </template>
+        </table>
+
+        <!-- OCR ローダー画面 -->
+        <div id="loader-bg" v-show="ocrLoader">
+          <div id="loader" v-show="ocrLoader">
+            <p id="load-message">Finding Wagyu ID...</p>
+            <img src="../static/img/preloader.gif" width="80" height="80" alt="Now Loading..." />
+          </div>
+        </div>
+
+        <!-- 和牛情報取得 ローダー画面 -->
+        <div id="loader-bg" v-show="wagyuInfoLoader">
+          <div id="loader" v-show="wagyuInfoLoader">
+            <p id="load-message">Getting Wagyu Infomation...</p>
+            <img src="../static/img/preloader.gif" width="80" height="80" alt="Now Loading..." />
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</body>
+
+<script>
+  Vue.createApp({
+    delimiters: ['[[', ']]'],
+    data() {
+      return {
+        wagyuId: "",
+        wagyuInformation: "",
+        ocrLoader: false,
+        wagyuInfoLoader: false,
+      }
+    },
+    methods: {
+      fileSelected(event) {
+        // Show OCR Loader
+        this.ocrLoader = true;
+        
+
+        this.wagyuInformation = ''
+
+        const selectedImg = this.$refs.selectedImg.files[0];
+        const formData = new FormData();
+        formData.append('img', selectedImg);
+
+
+        // Django CSRF token
+        const csrftoken = Cookies.get('csrftoken');
+        const config = {
+          headers: {
+            "X-CSRFToken": csrftoken
+          }
+        }
+
+        // Ajax to get wagyuu individual number
+        axios
+          .post("http://localhost:8000/api/0.1/packages/", formData, config)
+          .then(response => {
+            this.wagyuId = response.data.wagyu_id;
+          })
+          .catch(error => {
+            console.log(error)
+            alert("個体識別番号を取得できませんでした。")
+          })
+          .finally(() => {
+            // Hide OCR Loader
+            this.ocrLoader = false;
+          })
+      },
+      postWagyuId(event) {
+        // Show OCR Loader
+        this.wagyuInfoLoader = true;
+
+        const formData = new FormData();
+        formData.append('wagyu_id', this.wagyuId);
+
+        this.wagyuId = ''
+
+        // Django CSRF token
+        const csrftoken = Cookies.get('csrftoken');
+        const config = {
+          headers: {
+            "X-CSRFToken": csrftoken
+          }
+        }
+
+        // Ajax to get wagyu infomation
+        axios
+          .post("http://localhost:8000/api/0.1/wagyuId/", formData, config)
+          .then(response => {
+            console.log(response.data);
+            this.wagyuInformation = response.data;
+          })
+          .catch(error => {
+            console.log(error)
+            alert("和牛の情報を取得できませんでした。")
+          })
+          .finally(() => {
+            // Hide OCR Loader
+            this.wagyuInfoLoader = false;
+          })
+      }
+    }
+  }).mount('#wagyuerVue');
+
+</script>
+
+</html>
