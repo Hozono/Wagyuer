@@ -104,7 +104,6 @@ service-identity==18.1.0
 shellingham==1.3.2
 simplejson==3.16.0
 six==1.14.0
-sos==4.0
 sqlparse==0.4.1
 ssh-import-id==5.10
 systemd-python==234
