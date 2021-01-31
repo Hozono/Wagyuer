@@ -6,6 +6,8 @@ services:
     # restart: always
     ports:
       - "8888:80"
-  # web-app:
-
-
+  web-app:
+    build: .
+    volumes: 
+      - .:/usr/local/wagyuer
+    container_name: web-app
