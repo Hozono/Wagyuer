@@ -17,6 +17,9 @@ class Wagyuer:
 
     def get_individual_id(self, img_path: str) -> str:
         # setting pyocr
+        pyocr.tesseract.TESSERACT_CMD = (
+            r"/usr/local/Cellar/tesseract/4.1.1/bin/tesseract"
+        )
         tools = pyocr.get_available_tools()
         tool = tools[0]
 
@@ -39,8 +42,7 @@ class Wagyuer:
         # setting chrome
         option = Options()
         option.add_argument("--headless")
-        driver_path = "wagyuer/modules/chromedriver"
-        driver = webdriver.Chrome(executable_path=driver_path, options=option)
+        driver = webdriver.Chrome(options=option)
 
         wagyu_infomation = {}
         # get wagyu info

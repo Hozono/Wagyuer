@@ -23,6 +23,7 @@ class PackageViewSet(ModelViewSet):
         wagyu_id = wagyuer.get_individual_id(img_path)
 
         response.data["wagyu_id"] = wagyu_id
+
         return response
 
 
