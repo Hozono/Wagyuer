@@ -19,16 +19,16 @@ remove_container:
 
 # Django
 run:
-	python manage.py runserver
+	poetry run python manage.py runserver
 
 dumpdata:
-	python manage.py dumpdata auth.User --indent 2 --format=yaml > wagyuer/fixtures/user.yaml
+	poetry run python manage.py dumpdata auth.User --indent 2 --format=yaml > wagyuer/fixtures/user.yaml
 
 loaddata:
-	python manage.py loaddata  wagyuer/fixtures/user.yaml
+	poetry run python manage.py loaddata  wagyuer/fixtures/user.yaml
 
 migrations:
-	python manage.py makemigrations
+	poetry run python manage.py makemigrations
 
 migrate:
-	python manage.py migrate
+	poetry run python manage.py migrate
