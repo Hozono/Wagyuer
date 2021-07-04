@@ -17,7 +17,7 @@ connect_contaienr:
 remove_container:
 	docker rm wagyuer
 
-# Django
+# For Django
 run:
 	poetry run python manage.py runserver
 
