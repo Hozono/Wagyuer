@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "wagyuer"
+version = "0.1.0"
+description = ""
+authors = ["ChihiroHozono <chihiro4434132@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^3.1.6"
+chromedriver-binary = "^91"
+black = "^20.8b1"
+djangorestframework = "^3.12.4"
+django-docutils = "^0.5.1"
+django-cors-headers = "^3.7.0"
+pyocr = "^0.8"
+selenium = "^3.141.0"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
